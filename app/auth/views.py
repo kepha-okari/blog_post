@@ -1,4 +1,4 @@
-from flask import render_template,redirect,url_for,request,flash
+from flask import render_template,redirect,request,url_for,flash
 from . import auth
 from flask_login import login_user,logout_user,login_required
 from ..models import User
@@ -6,7 +6,7 @@ from .forms import RegistrationForm, LoginForm
 from .. import db
 
 # registration route
-@auth.route('templates/auth/reqister',methods=['GET','POST'])
+@auth.route('/templates/auth/reqister/',methods=['GET','POST'])
 def register():
     '''
     function that registers the users
@@ -22,7 +22,7 @@ def register():
     return render_template('auth/register.html',registration_form=form,title=title)
 
 # Login function
-@auth.route('/login',methods=['GET','POST'])
+@auth.route('/login/',methods=['GET','POST'])
 def login():
     '''
     Function that checks if the form is validated
