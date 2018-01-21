@@ -70,3 +70,14 @@ def new_comment(id):
 
     title = 'New Comment'
     return render_template('new_comment.html', title=title, comment_form=form)
+
+#delete selected comment
+@main.route('/delete/comment/<int:id>', methods=['GET','POST'])
+def delete_selected_comment(id):
+    """
+    view route to delete a selected comment
+    """
+    comment = Comment.query.get(id)
+    comment.delete_comment(id)
+
+    return redirect(url_for('main.index'))
