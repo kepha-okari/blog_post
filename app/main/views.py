@@ -1,13 +1,13 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from ..models import User, Blog
+from ..models import User, Blog, Comment
 from flask_login import login_required,current_user
 from datetime import datetime, timezone
 from .. import db
-from .forms import BlogForm
+from .forms import BlogForm,CommentForm
 
 
-# Views
+# Views index
 @main.route('/')
 def index():
     '''
@@ -17,6 +17,7 @@ def index():
     # posts = Post.get_posts()
     return render_template('index.html', title = title )
 
+# view route to post a blog
 @main.route('/new/blog', methods=['GET','POST'])
 def new_blog():
     '''
@@ -41,6 +42,31 @@ def delete_blog(id):
 
     if article is None:
         abort(404)
-        
+
     article.delete_blog()
     return redirect(url_for('main.index'))
+
+#commenting route
+@main.route('/post/comment/new/<int:id>', methods=['GET','POST'])
+@login_required
+def new_comment(id):
+
+    '''
+    View new comment function that returns a page with a form to create a comment for the specified post
+    '''
+    post = Blog.query.filter_by(id=id).first()
+
+    if post is None:
+        abort(404)
+
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        opinion = form.opinion.data
+        new_comment = Comment( opinion=opinion, articles_id=id, user_id=current_user.id)
+        new_comment.save_comment()
+
+        return redirect(url_for('main.index'))
+
+    title = 'New Comment'
+    return render_template('new_comment.html', title=title, comment_form=form)

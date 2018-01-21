@@ -50,7 +50,9 @@ class Blog(db.Model):
     comment = db.relationship("Comment",backref='article', lazy='dynamic')
 
     def save_blog(self):
-        '''save a blog in the database'''
+        '''
+        save a blog in the database
+        '''
         db.session.add(self)
         db.session.commit()
 
@@ -59,27 +61,20 @@ class Blog(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    # def get_blogs(id):
-    #     ''' get all the articles in the database '''
-    #     articles = Blog.query.filter_by(id=id).all()
-    #     return articles
-
 class Comment(db.Model):
     '''
     Comment class to define the feedback from users
     '''
-
-    # Name of the table
     __tablename__ = 'comments'
 
-    # id column that is the primary key
     id = db.Column(db.Integer, primary_key = True)
-
-    # comment_content for the feedback a user gives to a post
     opinion = db.Column(db.String)
-
-    # post_id column for linking a comment to a specific post
     articles_id = db.Column(db.Integer, db.ForeignKey("articles.id",ondelete='CASCADE') )
-
-    # user_id column for linking a comment to a specific user
     user_id = db.Column(db.Integer, db.ForeignKey("users.id") )
+
+    def save_comment(self):
+        '''
+        Function that saves a new comment given as feedback to a post
+        '''
+        db.session.add(self)
+        db.session.commit()
