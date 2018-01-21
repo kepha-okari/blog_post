@@ -24,6 +24,8 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True, index =True)
     pasword_hash = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
+    comment = db.relationship("Comment",backref='user', lazy='dynamic')
+
 
     # securing passwords
     @property
@@ -45,6 +47,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(255))
     blog = db.Column(db.String(3000))
+    comment = db.relationship("Comment",backref='article', lazy='dynamic')
 
     def save_blog(self):
         '''save a blog in the database'''
@@ -60,3 +63,23 @@ class Blog(db.Model):
     #     ''' get all the articles in the database '''
     #     articles = Blog.query.filter_by(id=id).all()
     #     return articles
+
+class Comment(db.Model):
+    '''
+    Comment class to define the feedback from users
+    '''
+
+    # Name of the table
+    __tablename__ = 'comments'
+
+    # id column that is the primary key
+    id = db.Column(db.Integer, primary_key = True)
+
+    # comment_content for the feedback a user gives to a post
+    opinion = db.Column(db.String)
+
+    # post_id column for linking a comment to a specific post
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id",ondelete='CASCADE') )
+
+    # user_id column for linking a comment to a specific user
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id") )
