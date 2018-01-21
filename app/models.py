@@ -39,3 +39,24 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+class Blog(db.Model):
+    __tablename__ = 'articles'
+    id = db.Column(db.Integer,primary_key = True)
+    title = db.Column(db.String(255))
+    blog = db.Column(db.String(3000))
+
+    def save_blog(self):
+        '''save a blog in the database'''
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_blog(self):
+        '''delete a given blog from the database'''
+        db.session.delete(self)
+        db.session.commit()
+
+    # def get_blogs(id):
+    #     ''' get all the articles in the database '''
+    #     articles = Blog.query.filter_by(id=id).all()
+    #     return articles

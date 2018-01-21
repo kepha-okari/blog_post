@@ -36,7 +36,7 @@ def login():
 
         flash('invalid username or password')
 
-    title ="One Minute Pitch|Login"
+    title ="Kepha |Login"
     return render_template('auth/login.html',login_form=login_form,title=title)
 
 #logout function
