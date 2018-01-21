@@ -79,7 +79,7 @@ class Comment(db.Model):
     opinion = db.Column(db.String)
 
     # post_id column for linking a comment to a specific post
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id",ondelete='CASCADE') )
+    articles_id = db.Column(db.Integer, db.ForeignKey("articles.id",ondelete='CASCADE') )
 
     # user_id column for linking a comment to a specific user
     user_id = db.Column(db.Integer, db.ForeignKey("users.id") )
