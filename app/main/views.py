@@ -14,8 +14,9 @@ def index():
     View root page function that returns the index page and its data
     '''
     title = 'Home'
-    # posts = Post.get_posts()
-    return render_template('index.html', title = title )
+    posts = Blog.get_posts()
+    return render_template('index.html', title = title, posts=posts )
+
 
 # view route to post a blog
 @main.route('/new/blog', methods=['GET','POST'])

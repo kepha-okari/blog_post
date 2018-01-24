@@ -1,5 +1,29 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
 
+<!-- Styles block -->
 {% block styles%}
     {{ super() }}
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+{% endblock %}
+
+<!-- Content block -->
+{% block content %}
+
+    <title> {{ title }} </title>
+
+    <div class="container">
+
+        <h3 class="index-header">List of Posts</h3>
+
+        <hr>
+
+        <ul class="list-unstyled">
+            {{ macro.displayPostList(posts)}}
+        </ul>
+
+
+
+    </div>
+
 {% endblock %}

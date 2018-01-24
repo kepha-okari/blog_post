@@ -61,6 +61,17 @@ class Blog(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @classmethod
+    def get_posts(cls):
+        '''
+        Function that queries the Posts Table in the database and returns all the information from the Posts Table
+
+        Returns:
+            posts : all the information in the posts table
+        '''
+        posts = Blog.query.order_by(Blog.id.desc()).all()
+        return posts
+
 class Comment(db.Model):
     '''
     Comment class to define the feedback from users
