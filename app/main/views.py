@@ -18,6 +18,17 @@ def index():
     return render_template('index.html', title = title, posts=posts )
 
 
+@main.route('/post/<int:id>', methods=['GET','POST'])
+def single_line(id):
+    '''
+    View function to return a single article
+    '''
+    article = Blog.query.get(id)
+    title = "article"
+
+    return render_template('single-blog.html',article = article,title = title)
+
+
 # view route to post a blog
 @main.route('/new/blog', methods=['GET','POST'])
 def new_blog():

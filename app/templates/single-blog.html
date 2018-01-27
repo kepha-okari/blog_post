@@ -7,23 +7,11 @@
     <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
 {% endblock %}
 
-<!-- Content block -->
 {% block content %}
-
-    <title> {{ title }} </title>
-
     <div class="container">
 
-        <h3 class="index-header">Latest</h3>
-
+        <h3 class="index-header">{{article.title}}</h3>
         <hr>
-
-        <ul class="list-unstyled">
-            {{ macro.displayPostList(posts)}}
-        </ul>
-
-
-
+        <p>{{article.blog}}</p>
     </div>
-
 {% endblock %}
