@@ -90,7 +90,12 @@ class Comment(db.Model):
         db.session.add(self)
         db.session.commit()
 
+
     @classmethod
+    def get_comments(self, id):
+        comment = Comment.query.filter_by(articles_id=id).all()
+        return comment
+
     def delete_comment(cls,comment_id):
         '''
         Function that deletes a specific single comment from the comments table and database

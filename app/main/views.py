@@ -17,7 +17,7 @@ def index():
     posts = Blog.get_posts()
     return render_template('index.html', title = title, posts=posts )
 
-
+# view function to render a selected article and its comments
 @main.route('/post/<int:id>', methods=['GET','POST'])
 def single_line(id):
     '''
@@ -25,9 +25,9 @@ def single_line(id):
     '''
     article = Blog.query.get(id)
     title = "article"
+    comments = Comment.get_comments(id)
 
-    return render_template('single-blog.html',article = article,title = title)
-
+    return render_template('single-blog.html',article = article,title = title, comments=comments)
 
 # view route to post a blog
 @main.route('/new/blog', methods=['GET','POST'])

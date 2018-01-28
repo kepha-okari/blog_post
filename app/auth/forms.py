@@ -12,7 +12,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('your username',validators=[Required()])
     password = PasswordField('password',validators=[Required(),EqualTo('password',message='passwords must match')])
     password_confirm = PasswordField('confirm password',validators=[Required()])
-    submit = SubmitField('sign Up')
+    submit = SubmitField('Sign Up')
 
 
     #custom validators
